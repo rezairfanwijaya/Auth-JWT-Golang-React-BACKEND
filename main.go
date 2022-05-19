@@ -2,31 +2,22 @@ package main
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
+	database "github.com/rezairfanwijaya/Auth-JWT-Golang-React/database"
+	routes "github.com/rezairfanwijaya/Auth-JWT-Golang-React/routes"
 )
 
 func main() {
-	// koneksi ke databse
-	dsn := "root:@tcp(localhost:3306)/jwt_go_react?charset=utf8mb4&parseTime=True&loc=Local"
-	_, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-
-	// cek error koneksi ke database
-	if err != nil {
-		panic(err)
-	}
+	// import koneksi database
+	database.Connect()
 
 	// kita menjalankan server menggunakan fiber biasanya menggunakan gin
 	app := fiber.New()
 
-	// route
-	app.Get("/", Hello)
+	// import routes
+	routes.Setup(app)
+	
 
 	// run server
 	app.Listen(":8080")
 }
 
-// function handler
-func Hello(c *fiber.Ctx) error {
-	return c.SendString("Hello, World!")
-}
