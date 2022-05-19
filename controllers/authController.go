@@ -162,3 +162,21 @@ func User(c *fiber.Ctx) error {
 	return c.JSON(user)
 
 }
+
+// function untuk logout
+func Logout(c *fiber.Ctx) error {
+	// untuk logout kita hanya perlu mengosongkan value cookie jwt dan memundurkan waktu menjadi minus
+	cookie := fiber.Cookie{
+		Name:     "jwt",
+		Value:    "",
+		Expires:  time.Now().Add(time.Hour * -1),
+		HTTPOnly: true,
+	}
+
+	// simpan cookie
+	c.Cookie(&cookie)
+	return c.JSON(fiber.Map{
+		"message": "Berhasil logout",
+		"code":    fiber.StatusOK,
+	})
+}
