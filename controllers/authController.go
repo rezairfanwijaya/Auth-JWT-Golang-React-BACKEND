@@ -131,3 +131,34 @@ func Login(c *fiber.Ctx) error {
 		"message": "Berhasil login",
 	})
 }
+
+// function untuk mengecek user siapa yang sedang login
+func User(c *fiber.Ctx) error {
+	// kita ambil cookie
+	cookie := c.Cookies("jwt") // kenapa jwt? karena kita set name cookie nya jwt, bisa cek difunction login
+
+	// kita cek apakah jwt yang ada di cookie itu valid atau tidak
+	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+		// jika valid
+		return []byte(key), nil
+	})
+
+	// cek error
+	if err != nil {
+		c.Status(fiber.StatusUnauthorized)
+		return c.JSON(fiber.Map{
+			"message": "Token tidak valid",
+			"code":    401,
+		})
+	}
+
+	// ambil informasi yg ada didalam token untuk mengetahui siapa yang sedang login
+	// karena di dalam token tadi kita menyisipkan id user
+	claims := token.Claims.(*jwt.StandardClaims)
+	var user model.User
+
+	database.DB.Where("id = ?", claims.Issuer).First(&user) // issuer berisi id user sesuai dengan apa yg kita set di function login
+
+	return c.JSON(user)
+
+}
