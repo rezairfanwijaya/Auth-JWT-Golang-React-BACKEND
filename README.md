@@ -4,7 +4,7 @@ Ini merupakan repository yang berisi kode yang dibuat sebagai `backend` dari pro
 Untuk bagian `frontend` bisa dilihat di repository berikut [FRONTEND](https://github.com/rezairfanwijaya/Auth-JWT-Golang-React-FRONTEND)
 
 Repository ini berisi beberapa path api yang bisa diconsume oleh frontend. Beberapa list api yang bisa digunakan adalah 
-```http
+```
  GET /api/register
 ```
 ```
