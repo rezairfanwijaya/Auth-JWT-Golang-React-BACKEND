@@ -34,6 +34,14 @@ func ShowAllUSer(c *fiber.Ctx) error {
 
 	// * tampilkan semua data user
 	user := database.GetAllUser()
-	return c.JSON(user)
+
+	// * hitung jumlah data user
+	count := cap(user)
+	return c.JSON(fiber.Map{
+		"message": "Berhasil menampilkan semua data user",
+		"code":    200,
+		"total":   count,
+		"data":    user,
+	})
 
 }
