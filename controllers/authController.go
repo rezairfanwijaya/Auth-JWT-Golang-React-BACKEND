@@ -76,10 +76,10 @@ func Login(c *fiber.Ctx) error {
 	database.DB.Where("email = ?", data["email"]).First(&user)
 	// jika tidak ada data yang ditemukan
 	if user.Id == 0 {
-		c.Status(fiber.StatusNotFound)
+		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
 			"status":  "Not Found",
-			"code":    404,
+			"code":    400,
 			"message": "Pengguna tidak ditemukan, silahakan register terlebih dahulu di alamat http://localhost:3000/api/register",
 		})
 	}
