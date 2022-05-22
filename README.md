@@ -1,2 +1,2 @@
 # BACKEND
-Ini merupakan 
+Ini merupakan repository yang berisi kode yang dibuat sebagai `backend`
