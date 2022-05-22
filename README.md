@@ -6,5 +6,7 @@ Untuk bagian `frontend` bisa dilihat di repository berikut [FRONTEND](https://gi
 Repository ini berisi beberapa path api yang bisa diconsume oleh frontend. Beberapa list api yang bisa digunakan adalah 
 ```
  /api/v1/auth/login
+```
+```
  /api/v1/auth/login
 ```
