@@ -25,3 +25,9 @@ func Connect() {
 	// jika tidak ada error maka jalankan migration tabel
 	conn.AutoMigrate(&model.User{})
 }
+
+func GetAllUser() []model.User {
+	var allUser []model.User
+	DB.Find(&allUser)
+	return allUser
+}

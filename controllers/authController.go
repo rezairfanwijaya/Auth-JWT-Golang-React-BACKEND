@@ -11,7 +11,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var key = "mysecret123890"
+var Key = "mysecret123890"
 
 // function handler register
 func Register(c *fiber.Ctx) error {
@@ -106,8 +106,8 @@ func Login(c *fiber.Ctx) error {
 		},
 	})
 
-	// lalu tandatangani token yang dibuat menggunakan secret key yang sudah kita buat
-	token, err := claims.SignedString([]byte(key))
+	// lalu tandatangani token yang dibuat menggunakan secret Key yang sudah kita buat
+	token, err := claims.SignedString([]byte(Key))
 	if err != nil {
 		c.Status(fiber.StatusInternalServerError)
 		return c.JSON(fiber.Map{
@@ -140,7 +140,7 @@ func User(c *fiber.Ctx) error {
 	// kita cek apakah jwt yang ada di cookie itu valid atau tidak
 	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
 		// jika valid
-		return []byte(key), nil
+		return []byte(Key), nil
 	})
 
 	// cek error
