@@ -18,17 +18,19 @@ func ShowAllUSer(c *fiber.Ctx) error {
 
 	// ! jika token tidak ditemukan
 	if err != nil {
+		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
 			"message": "Tidak ada token",
-			"code":    401,
+			"code":    fiber.StatusBadRequest,
 		})
 	}
 
 	// ! jika token tidak valid
 	if !token.Valid {
+		c.Status(fiber.StatusBadRequest)
 		return c.JSON(fiber.Map{
 			"message": "Token tidak valid",
-			"code":    401,
+			"code":    fiber.StatusBadRequest,
 		})
 	}
 
@@ -36,7 +38,7 @@ func ShowAllUSer(c *fiber.Ctx) error {
 	user := database.GetAllUser()
 
 	// * hitung jumlah data user
-	count := cap(user)
+	count := len(user)
 	return c.JSON(fiber.Map{
 		"message": "Berhasil menampilkan semua data user",
 		"code":    200,
