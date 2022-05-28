@@ -148,7 +148,16 @@ func User(c *fiber.Ctx) error {
 	if err != nil {
 		c.Status(fiber.StatusUnauthorized)
 		return c.JSON(fiber.Map{
-			"message": "Token tidak valid",
+			"message": "Token Ada Token",
+			"code":    401,
+		})
+	}
+
+	// cek jika token tidak valid
+	if !token.Valid {
+		c.Status(fiber.StatusUnauthorized)
+		return c.JSON(fiber.Map{
+			"message": "Token Tidak Valid",
 			"code":    401,
 		})
 	}
